@@ -63,7 +63,7 @@ router.delete("/:minionId", (req, res, next) => {
     err.status = 404;
     next(err);
   } else {
-    res.status(200).send();
+    res.status(204).send();
   }
 });
 
@@ -71,7 +71,7 @@ router.post("/", (req, res, next) => {
   const newMinion = req.body;
 
   try {
-    res.send(addToDatabase("minions", newMinion));
+    res.status(201).send(addToDatabase("minions", newMinion));
   } catch (error) {
     error.status(400);
     next(error);
