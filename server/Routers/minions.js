@@ -16,6 +16,9 @@ const {
 const express = require("express");
 const router = express.Router();
 
+const workRouter = require('./work');
+router.use('/:minionId/work', workRouter);
+
 router.param("minionId", (req, res, next, id) => {
   const minion = getFromDatabaseById("minions", id);
   if (minion) {
@@ -73,7 +76,7 @@ router.post("/", (req, res, next) => {
   try {
     res.status(201).send(addToDatabase("minions", newMinion));
   } catch (error) {
-    error.status(400);
+    error.status = 400;
     next(error);
   }
 });
