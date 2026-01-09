@@ -73,7 +73,7 @@ router.post("/", checkMillionDollarIdea, (req, res, next) => {
   try {
     res.status(201).send(addToDatabase("ideas", newIdea));
   } catch (error) {
-    error.status(400);
+    error.status = 400;
     next(error);
   }
 });
