@@ -8,6 +8,32 @@
 */
 
 const express = require('express');
+const {getFromDatabaseById, getAllFromDatabase} = require('../db')
 const router = express.Router();
+
+router.param('ideaId', (req, res, next, id) => {
+    const idea = getFromDatabaseById('ideas', Number(id))
+    if (idea) {
+        req.idea = idea
+        next()
+    } else {
+        const err = new Error("Could not find idea with id: " + id )
+        err.status = 404
+        next(err)
+    }
+})
+
+router.get('/', (req, res, next) => {
+    const ideas = getAllFromDatabase('ideas')
+
+    if (!ideas) {
+        const err = new Error("Could not find meetoing data on server" )
+        err.status = 404
+        next(err)
+    } else {
+        res.send(ideas);
+    }
+})
+
 
 module.exports = router;

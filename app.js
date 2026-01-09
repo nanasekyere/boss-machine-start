@@ -11,6 +11,9 @@ app.use(cors())
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
+// Middleware for handling errors
+const errorhandler = require('errorhandler')
+app.use(errorhandler())
 // Mount your existing apiRouter below at the '/api' path.
 const apiRouter = require('./server/api');
 app.use('/api', apiRouter)
